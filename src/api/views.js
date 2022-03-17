@@ -11,7 +11,6 @@ async function send(req, res) {
         }, 422);
     }
 
-    console.log(to, content);
     try {
         await bot.sendText(`${to}@c.us`, content);
         res.send({
