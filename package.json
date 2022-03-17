@@ -1,0 +1,23 @@
+{
+  "name": "whatsapp-auto",
+  "version": "1.0.0",
+  "description": "API para enviar mensagens pelo WhatsApp",
+  "main": "index.js",
+  "dependencies": {
+    "venom-bot": "^4.0.9"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RedeHG/whatsapp-auto.git"
+  },
+  "author": "Guilherme S.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RedeHG/whatsapp-auto/issues"
+  },
+  "homepage": "https://github.com/RedeHG/whatsapp-auto#readme"
+}
