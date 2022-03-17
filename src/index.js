@@ -1,11 +1,9 @@
-const venom = require('venom-bot');
+const express = require('express');
+const { apiRouter } = require('./api/routes');
 
+const app = express();
+const port = 3000;
 
-(async () => {
-    const client = await venom.create({
-        session: "teste",
-        multidevice: false,
-    });
+app.use('/api', apiRouter);
 
-    client.sendText('5533987288736@c.us', 'teste').then(console.log).catch(console.error);
-})();
+app.listen(port);

@@ -4,6 +4,7 @@
   "description": "API para enviar mensagens pelo WhatsApp",
   "main": "src/index.js",
   "dependencies": {
+    "express": "^4.17.3",
     "venom-bot": "^4.0.9"
   },
   "scripts": {
