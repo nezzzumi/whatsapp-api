@@ -7,5 +7,5 @@ const venom = require('venom-bot');
         multidevice: false,
     });
 
-    client.sendText('NUMERO@c.us', 'teste').catch((r) => console.error(r));
+    client.sendText('5533987288736@c.us', 'teste').then(console.log).catch(console.error);
 })();
