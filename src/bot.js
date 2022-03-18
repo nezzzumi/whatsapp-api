@@ -1,5 +1,4 @@
 const venom = require('venom-bot');
-const console = require('console');
 
 let bot;
 
@@ -11,11 +10,7 @@ let bot;
 })();
 
 async function sendText(to, content) {
-    try {
-        await bot.sendText(to, content);
-    } catch (error) {
-        console.error(error);
-    }
+    return bot.sendText(to, content);
 }
 
 module.exports = {
