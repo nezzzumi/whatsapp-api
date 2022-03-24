@@ -3,7 +3,7 @@ const views = require('./views');
 
 const router = express.Router();
 
-router.get('/send', views.send);
+router.post('/send', views.send);
 
 module.exports = {
     apiRouter: router,

@@ -2,9 +2,9 @@ const console = require('console');
 const bot = require('../bot');
 
 async function send(req, res) {
-    const { to, content } = req.query;
+    const { to, content } = req.body;
 
-    if (!to || !content) {
+    if ((!to || !content) || (typeof to !== 'string' || typeof content !== 'string')) {
         return res.status(400).json({
             error: true,
             msg: 'Parâmetros inválidos.',
