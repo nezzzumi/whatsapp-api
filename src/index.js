@@ -9,7 +9,7 @@ app.use(express.json());
 app.use((req, res, next) => {
     const { token } = req.headers;
 
-    if (!token || token !== fs.readFileSync('.token').toString()) {
+    if (!token || token !== fs.readFileSync('.token').toString().trim()) {
         return res.status(401).json({
             error: true,
             msg: 'Não autorizado',
