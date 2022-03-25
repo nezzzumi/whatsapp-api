@@ -12,7 +12,7 @@ app.use((req, res, next) => {
     if (!token || token !== fs.readFileSync('.token').toString().trim()) {
         return res.status(401).json({
             error: true,
-            msg: 'Não autorizado',
+            msg: 'Não autorizado.',
         });
     }
 
