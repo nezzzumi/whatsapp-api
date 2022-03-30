@@ -14,6 +14,11 @@ async function sendText(to, content) {
     return bot.sendText(to, content);
 }
 
+function isReady() {
+    return bot !== undefined;
+}
+
 module.exports = {
     sendText,
+    isReady,
 };

@@ -3,6 +3,13 @@ const bot = require('../bot');
 async function send(req, res) {
     const { to, content } = req.body;
 
+    if (!bot.isReady()) {
+        return res.status(503).json({
+            error: true,
+            msg: 'O serviço ainda não está pronto para uso.',
+        });
+    }
+
     if ((!to || !content) || (typeof to !== 'string' || typeof content !== 'string')) {
         return res.status(400).json({
             error: true,
@@ -27,7 +34,7 @@ async function send(req, res) {
         res.json({
             error: true,
             msg: 'Não foi possível enviar a mensagem.',
-            result,
+            result: result.text,
         });
     });
 
