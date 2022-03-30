@@ -24,7 +24,7 @@ Para iniciar a API, no diretório do projeto, digite:
 
     node .
 
-Após isso, irá aparecer um QRCODE no terminal. Basta lê-lo, que a API estará pronta para enviar mensages.
+Após isso, irá aparecer um QRCODE no terminal. Basta lê-lo, que a API estará pronta para enviar mensagens.
 
 **obs: a sessão ficará salva.**
 
