@@ -9,7 +9,7 @@ const port = 3000;
 app.use(express.json());
 app.use((req, res, next) => {
     // TODO: adicionar JWT
-    const { token } = req.headers;
+    const token = req.headers['x-key'];
 
     if (!token || token !== process.env.TOKEN) {
         return res.status(401).json({
