@@ -92,7 +92,7 @@ No caso do venom ainda não ter sido carregado, ou do QR CODE não ter sido lido
 }
 ```
 
-No caso do número ser inválido (tamanho diferente de 13, e não iniciado com 55):
+No caso do número ser inválido (tamanho diferente de 13, ou não iniciar com 55):
 
 `422 UNPROCESSABLE ENTITY`
 
