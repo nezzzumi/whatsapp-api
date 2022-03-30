@@ -1,4 +1,3 @@
-const console = require('console');
 const bot = require('../bot');
 
 async function send(req, res) {
@@ -25,8 +24,6 @@ async function send(req, res) {
             result,
         });
     }).catch((result) => {
-        console.error(result);
-
         res.json({
             error: true,
             msg: 'Não foi possível enviar a mensagem.',
