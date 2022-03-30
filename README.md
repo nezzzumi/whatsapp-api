@@ -8,6 +8,16 @@ Para instalar as dependências, no diretório do projeto, digite:
 
     npm i
 
+Após isso, necessário criar o arquivo .env no diretório do projeto, com a seguinte estrutura:
+
+    TOKEN=813e89727b7064cbd4f267d4a73df6fa
+
+Para criar um token aleatório, eu costumo utilizar o seguinte comando:
+
+    head -c128 /dev/random | md5sum
+
+**Atenção: essa é uma forma de "autenticação" provisória. Uma autenticação com token JWT deve ser implementado em breve.**
+
 ## Execução
 
 Para iniciar a API, no diretório do projeto digite:
