@@ -46,25 +46,6 @@ Após isso, irá aparecer um QRCODE no terminal. Basta lê-lo, que a API estará
 {
   "error": false,
   "msg": "Mensagem enviada com sucesso.",
-  "result": {
-    "me": {},
-    "to": {
-      "fromMe": true,
-      "remote": {
-        "server": "c.us",
-        "user": "551188888888",
-        "_serialized": "551188888888@c.us"
-      },
-      "id": "PVMQGEN0",
-      "self": "out",
-      "_serialized": "true_551188888888@c.us_PVMQGEN0_out"
-    },
-    "erro": false,
-    "text": "oi",
-    "status": "OK",
-    "result": null,
-    "type": "sendText"
-  }
 }
 ```
 
