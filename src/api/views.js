@@ -24,11 +24,10 @@ async function send(req, res) {
         });
     }
 
-    bot.sendText(`${to}@c.us`, content).then((result) => {
+    bot.sendText(`${to}@c.us`, content).then(() => {
         res.json({
             error: false,
             msg: 'Mensagem enviada com sucesso.',
-            result,
         });
     }).catch((result) => {
         res.json({
