@@ -92,6 +92,8 @@ No caso do venom retornar um erro:
 {
   "error": true,
   "msg": "Não foi possível enviar a mensagem.",
-  "result": "incorrect parameters! Use as an example: 000000000000@c.us", // Erro retornado pelo venom.
+  "result": "incorrect parameters! Use as an example: 000000000000@c.us",
 }
 ```
+
+A propriedade `result` é retornada pelo venom.
