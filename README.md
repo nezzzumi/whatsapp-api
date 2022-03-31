@@ -10,13 +10,13 @@ Para instalar as dependências, no diretório do projeto, digite:
 
 Após isso, necessário criar o arquivo .env no diretório do projeto, com a seguinte estrutura:
 
-    TOKEN=813e89727b7064cbd4f267d4a73df6fa
+    TOKEN=SEU_TOKEN
 
 Para criar um token aleatório, eu costumo utilizar o seguinte comando:
 
     head -c128 /dev/random | md5sum
 
-**Atenção: essa é uma forma de "autenticação" provisória. Uma autenticação com token JWT deve ser implementado em breve.**
+**Atenção: essa é uma forma de "autenticação" provisória. Uma autenticação com token JWT deve ser implementada em breve.**
 
 ## Execução
 
@@ -24,7 +24,7 @@ Para iniciar a API, no diretório do projeto, digite:
 
     node .
 
-Após isso, irá aparecer um QRCODE no terminal. Basta lê-lo, que a API estará pronta para enviar mensagens.
+Após isso, irá aparecer um QRCODE no terminal. Basta lê-lo, e a API estará pronta para enviar mensagens.
 
 **obs: a sessão ficará salva.**
 
@@ -62,7 +62,7 @@ No caso de faltar algum parâmetro:
 }
 ```
 
-No caso do venom ainda não ter sido carregado, ou do QR CODE não ter sido lido ainda:
+No caso do venom ainda não ter sido carregado, ou caso não tenha nenhuma sessão aberta:
 
 `503 SERVICE UNAVAILABLE`
 
@@ -92,6 +92,6 @@ No caso do venom retornar um erro:
 {
   "error": true,
   "msg": "Não foi possível enviar a mensagem.",
-  "result": "incorrect parameters! Use as an example: 000000000000@c.us",
+  "result": "incorrect parameters! Use as an example: 000000000000@c.us", // Erro retornado pelo venom.
 }
 ```
