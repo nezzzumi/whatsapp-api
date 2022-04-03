@@ -16,8 +16,6 @@ Para criar uma chave aleatória, eu costumo utilizar o seguinte comando:
 
     python -c 'import secrets; print(secrets.token_hex(16))'
 
-**Atenção: essa é uma forma de "autenticação" provisória. Uma autenticação com token JWT deve ser implementada em breve.**
-
 ## Execução
 
 Para iniciar a API, no diretório do projeto, digite:
