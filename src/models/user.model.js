@@ -1,6 +1,5 @@
-const { Sequelize, DataTypes } = require('sequelize');
-
-const sequelize = new Sequelize('database.db');
+const { DataTypes } = require('sequelize');
+const sequelize = require('../services/db.service');
 
 const User = sequelize.define('User', {
     id: {
@@ -12,10 +11,6 @@ const User = sequelize.define('User', {
     password: DataTypes.STRING,
     dt_created: DataTypes.DATE,
 });
-
-(async () => {
-    await sequelize.sync();
-})();
 
 module.exports = {
     User,

@@ -1,25 +1,14 @@
 require('dotenv/config');
 
 const express = require('express');
-const { apiRouter } = require('./api/routes');
+const { botRouter } = require('./routes/bot.route');
+const { authMiddleware } = require('./middlewares/auth.middleware');
 
 const app = express();
 const port = 3000;
 
 app.use(express.json());
-app.use((req, res, next) => {
-    // TODO: adicionar JWT
-    const token = req.headers['x-key'];
-
-    if (!token || token !== process.env.TOKEN) {
-        return res.status(401).json({
-            error: true,
-            msg: 'Não autorizado.',
-        });
-    }
-
-    return next();
-});
-app.use('/api', apiRouter);
+app.use(authMiddleware);
+app.use('/api', botRouter);
 
 app.listen(port);

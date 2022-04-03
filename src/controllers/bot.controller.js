@@ -1,4 +1,4 @@
-const bot = require('../bot');
+const bot = require('../services/bot.service');
 
 async function send(req, res) {
     const { to, content } = req.body;
