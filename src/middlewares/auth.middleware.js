@@ -1,8 +1,14 @@
-function auth(req, res, next) {
-    // TODO: adicionar JWT
-    const token = req.headers['x-key'];
+const assert = require('assert');
+const jwt = require('jsonwebtoken');
+const { parseAuthorizationHeader } = require('../utils/helpers.util');
 
-    if (!token || token !== process.env.TOKEN) {
+function auth(req, res, next) {
+    const token = parseAuthorizationHeader(req.headers.authorization);
+
+    try {
+        assert(token, 'Token é obrigatório.');
+        jwt.verify(token, process.env.JWT_SECRET_KEY);
+    } catch (error) {
         return res.status(401).json({
             error: true,
             msg: 'Não autorizado.',
@@ -12,6 +18,4 @@ function auth(req, res, next) {
     return next();
 }
 
-module.exports = {
-    authMiddleware: auth,
-};
+module.exports = auth;

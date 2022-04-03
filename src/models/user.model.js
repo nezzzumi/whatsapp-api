@@ -9,9 +9,10 @@ const User = sequelize.define('User', {
     },
     username: DataTypes.STRING,
     password: DataTypes.STRING,
-    dt_created: DataTypes.DATE,
 });
 
-module.exports = {
-    User,
-};
+(async () => {
+    await User.sync();
+})();
+
+module.exports = User;

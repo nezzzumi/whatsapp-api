@@ -1,14 +1,13 @@
 require('dotenv/config');
+require('./services/db.service');
 
 const express = require('express');
-const { botRouter } = require('./routes/bot.route');
-const { authMiddleware } = require('./middlewares/auth.middleware');
+const apiRouter = require('./routes/api.route');
 
 const app = express();
 const port = 3000;
 
 app.use(express.json());
-app.use(authMiddleware);
-app.use('/api', botRouter);
+app.use('/api', apiRouter);
 
 app.listen(port);
