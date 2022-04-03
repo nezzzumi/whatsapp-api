@@ -9,7 +9,7 @@
     "jsonwebtoken": "^8.5.1",
     "sequelize": "^6.17.0",
     "sqlite3": "^4.2.0",
-    "venom-bot": "^4.0.3"
+    "venom-bot": "^4.0.9"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
