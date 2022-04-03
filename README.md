@@ -2,6 +2,8 @@
 
 Simples API criada com o intuito de enviar mensagens pelo WhatsApp, utilizando [Express.js](https://expressjs.com/pt-br/) e [Venom](https://github.com/orkestral/venom).
 
+Comece [aqui](./src/index.js).
+
 ## Instalação
 
 Para instalar as dependências, no diretório do projeto, digite:
