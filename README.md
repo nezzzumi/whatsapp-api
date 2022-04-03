@@ -10,11 +10,11 @@ Para instalar as dependências, no diretório do projeto, digite:
 
 Após isso, necessário criar o arquivo .env no diretório do projeto, com a seguinte estrutura:
 
-    TOKEN=SEU_TOKEN
+    JWT_SECRET_KEY=SUA_CHAVE
 
-Para criar um token aleatório, eu costumo utilizar o seguinte comando:
+Para criar uma chave aleatória, eu costumo utilizar o seguinte comando:
 
-    head -c128 /dev/random | md5sum
+    python -c 'import secrets; print(secrets.token_hex(16))'
 
 **Atenção: essa é uma forma de "autenticação" provisória. Uma autenticação com token JWT deve ser implementada em breve.**
 
@@ -30,13 +30,57 @@ Após isso, irá aparecer um QRCODE no terminal. Basta lê-lo, e a API estará p
 
 ## Exemplos de uso
 
+### Autenticando
+
+### Request
+
+`POST /api/auth/login`
+
+    curl localhost:3000/api/auth/login -H 'content-type: application/json' -d '{"username": "user", "password": "mypassword"}'
+
+### Response
+
+`200 OK`
+
+```json
+{
+  "error": false,
+  "msg": "Login realizado com sucesso.",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTY0ODk3MDM5OCwiZXhwIjoxNjUxNTYyMzk4fQ.1u5PI7usj8gLLq2UYH7JedaGnC-4aZEYMsOXuGb-jcU"
+}
+```
+
+### Erros
+
+No caso de faltar algum parâmetro:
+
+`400 BAD REQUEST`
+
+```json
+{
+  "error": true,
+  "msg": "Parâmetros inválidos."
+}
+```
+
+No caso de credenciais inválidas:
+
+`200 BAD REQUEST`
+
+```json
+{
+  "error": true,
+  "msg": "Credenciais inválidas."
+}
+```
+
 ### Enviando mensagem
 
 ### Request
 
-`POST /api/send`
+`POST /api/bot/send`
 
-    curl localhost:3000/api/send -H 'x-key: secret' -H 'content-type: application/json' -d '{"to": "5511988766767", "content": "oi"}'
+    curl localhost:3000/api/bot/send -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiI...' -H 'content-type: application/json' -d '{"to": "5511988766767", "content": "oi"}'
 
 ### Response
 
