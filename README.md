@@ -15,8 +15,9 @@ Após isso, necessário criar o arquivo .env no diretório do projeto, com a seg
     JWT_SECRET_KEY=SUA_CHAVE
 
 Para criar uma chave aleatória, eu costumo utilizar o seguinte comando:
-
-    python -c 'import secrets; print(secrets.token_hex(16))'
+    
+    head -c32 /dev/random | base64
+    
 
 ## Execução
 
