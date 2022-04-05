@@ -66,7 +66,7 @@ No caso de faltar algum parâmetro:
 
 No caso de credenciais inválidas:
 
-`200 BAD REQUEST`
+`200 OK`
 
 ```json
 {
