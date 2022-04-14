@@ -37,7 +37,10 @@ Após isso, irá aparecer um QRCODE no terminal. Basta lê-lo, e a API estará p
 
 `POST /api/auth/login`
 
-    curl localhost:3000/api/auth/login -H 'content-type: application/json' -d '{"username": "user", "password": "mypassword"}'
+```bash
+curl 'localhost:3000/api/auth/login' -H 'content-type: application/json' -d '{"username": "user", "password": "mypassword"}'
+```
+
 
 ### Response
 
@@ -81,7 +84,10 @@ No caso de credenciais inválidas:
 
 `POST /api/bot/send`
 
-    curl localhost:3000/api/bot/send -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiI...' -H 'content-type: application/json' -d '{"to": "5511988766767", "content": "oi"}'
+```bash
+curl 'localhost:3000/api/bot/send' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiI...' -H 'content-type: application/json' -d '{"to": "5511988766767", "content": "oi"}'
+```
+
 
 ### Response
 
