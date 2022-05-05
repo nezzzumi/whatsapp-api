@@ -8,7 +8,7 @@
     "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
     "sequelize": "^6.17.0",
-    "sqlite3": "^4.2.0",
+    "sqlite3": "^5.0.7",
     "venom-bot": "^4.0.9"
   },
   "scripts": {
