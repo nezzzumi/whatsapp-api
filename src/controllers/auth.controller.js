@@ -20,6 +20,13 @@ async function post(req, res) {
         });
     }
 
+    if (!user.active) {
+        return res.status(401).json({
+            error: true,
+            msg: 'Usuário inativo.',
+        });
+    }
+
     return res.json({
         error: false,
         msg: 'Login realizado com sucesso.',
