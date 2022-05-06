@@ -1,6 +1,14 @@
+const jwt = require('jsonwebtoken');
 const bot = require('../services/bot.service');
+const authService = require('../services/auth.service');
+const helpers = require('../utils/helpers.util');
+const log = require('../services/log.service');
 
 async function send(req, res) {
+    const token = helpers.parseAuthorizationHeader(req.headers.authorization);
+    const payload = jwt.decode(token);
+    const user = await authService.getUserById(payload.id);
+
     const { to, content } = req.body;
 
     if (!bot.isReady()) {
@@ -29,6 +37,7 @@ async function send(req, res) {
             error: false,
             msg: 'Mensagem enviada com sucesso.',
         });
+        log.logMessage(content, to, user);
     }).catch((result) => {
         res.json({
             error: true,

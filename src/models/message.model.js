@@ -16,15 +16,10 @@ const Message = sequelize.define('Message', {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    user: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: User,
-            key: 'id',
-        },
-    },
 });
+
+Message.belongsTo(User, { onDelete: 'SET NULL' });
+User.hasMany(Message);
 
 (async () => {
     await Message.sync({ alter: true });

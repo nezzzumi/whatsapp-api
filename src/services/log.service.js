@@ -1,10 +1,10 @@
 const Message = require('../models/message.model');
 
 async function logMessage(content, to, user) {
-    Message.create({
+    await Message.create({
         content,
         to,
-        user,
+        UserId: user.id,
     });
 }
 
