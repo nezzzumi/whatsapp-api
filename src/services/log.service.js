@@ -4,7 +4,7 @@ async function logMessage(content, to, user) {
     await Message.create({
         content,
         to,
-        UserId: user.id,
+        user: user.id,
     });
 }
 
