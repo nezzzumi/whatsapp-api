@@ -17,10 +17,10 @@ function getUserById(id) {
     return User.findByPk(id);
 }
 
-function getUserByName(name) {
+function getUserByName(username) {
     return User.findOne({
         where: {
-            username: name,
+            username,
         },
     });
 }
