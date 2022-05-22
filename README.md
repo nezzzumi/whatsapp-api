@@ -50,7 +50,8 @@ curl 'localhost:3000/api/auth/login' -H 'content-type: application/json' -d '{"u
 {
   "error": false,
   "msg": "Login realizado com sucesso.",
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTY0ODk3MDM5OCwiZXhwIjoxNjUxNTYyMzk4fQ.1u5PI7usj8gLLq2UYH7JedaGnC-4aZEYMsOXuGb-jcU"
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTY0ODk3MDM5OCwiZXhwIjoxNjUxNTYyMzk4fQ.1u5PI7usj8gLLq2UYH7JedaGnC-4aZEYMsOXuGb-jcU",
+  "expiresIn": 2592000,
 }
 ```
 

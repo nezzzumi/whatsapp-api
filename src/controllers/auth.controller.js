@@ -27,12 +27,16 @@ async function post(req, res) {
         });
     }
 
+    // 30 dias em segundos (2592000)
+    const expiresIn = ((60 * 60) * 24) * 30;
+
     return res.json({
         error: false,
         msg: 'Login realizado com sucesso.',
         token: jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET_KEY, {
-            expiresIn: '30d',
+            expiresIn
         }),
+        expiresIn
     });
 }
 
