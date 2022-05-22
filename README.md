@@ -132,7 +132,7 @@ No caso do número ser inválido (tamanho diferente de 13, ou não iniciar com 5
 ```json
 {
   "error": true,
-  "msg": "Parâmetros inválidos."
+  "msg": "Número inválido."
 }
 ```
 
