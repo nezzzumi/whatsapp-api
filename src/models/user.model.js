@@ -23,7 +23,7 @@ const User = sequelize.define('User', {
 });
 
 (async () => {
-  await User.sync({ alter: true });
+  await User.sync({ });
 })();
 
 module.exports = User;

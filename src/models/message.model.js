@@ -23,7 +23,7 @@ const Message = sequelize.define('Message', {
 });
 
 (async () => {
-  await Message.sync({ alter: true });
+  await Message.sync({ });
 })();
 
 module.exports = Message;
