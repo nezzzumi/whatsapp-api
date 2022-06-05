@@ -8,7 +8,7 @@ Comece [aqui](./src/index.js).
 
 Para instalar as dependências, no diretório do projeto, digite:
 
-    npm i
+    yarn
 
 Após isso, necessário criar o arquivo .env no diretório do projeto, com a seguinte estrutura:
 
