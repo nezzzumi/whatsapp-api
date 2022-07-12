@@ -24,8 +24,8 @@ async function send(req, res) {
       msg: 'Parâmetros inválidos.',
     });
   }
-
-  if (!to.startsWith('55') || to.length !== 13) {
+!
+  if (!to.startsWith('55') || ![12, 13].includes(to.length)) {
     return res.status(422).json({
       error: true,
       msg: 'Número inválido.',
