@@ -28,7 +28,7 @@ async function post(req, res) {
   }
 
   // 30 dias em segundos (2592000)
-  const expiresIn = ((60 * 60) * 24) * 30;
+  const expiresIn = 60 * 60 * 24 * 30;
 
   return res.json({
     error: false,

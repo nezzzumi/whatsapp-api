@@ -18,7 +18,7 @@ async function send(req, res) {
     });
   }
 
-  if ((!to || !content) || (typeof to !== 'string' || typeof content !== 'string')) {
+  if (!to || !content || typeof to !== 'string' || typeof content !== 'string') {
     return res.status(400).json({
       error: true,
       msg: 'Parâmetros inválidos.',
@@ -32,19 +32,22 @@ async function send(req, res) {
     });
   }
 
-  bot.sendText(`${to}@c.us`, content).then(() => {
-    res.json({
-      error: false,
-      msg: 'Mensagem enviada com sucesso.',
+  bot
+    .sendText(`${to}@c.us`, content)
+    .then(() => {
+      res.json({
+        error: false,
+        msg: 'Mensagem enviada com sucesso.',
+      });
+      log.logMessage(content, to, user);
+    })
+    .catch((result) => {
+      res.json({
+        error: true,
+        msg: 'Não foi possível enviar a mensagem.',
+        result: result.text,
+      });
     });
-    log.logMessage(content, to, user);
-  }).catch((result) => {
-    res.json({
-      error: true,
-      msg: 'Não foi possível enviar a mensagem.',
-      result: result.text,
-    });
-  });
 
   return null;
 }
