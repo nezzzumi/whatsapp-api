@@ -17,7 +17,12 @@ venom
   .catch(console.error);
 
 async function sendText(to, content) {
-  return bot.sendText(to, content);
+  await bot.startTyping(to);
+  const result = await bot.sendText(to, content);
+
+  await bot.stopTyping(to);
+
+  return result;
 }
 
 function isReady() {
