@@ -1,6 +1,17 @@
 # File created using '.gitignore Generator' for Visual Studio Code: https://bit.ly/vscode-gig
-# Created by https://www.toptal.com/developers/gitignore/api/windows,visualstudiocode,node,yarn
-# Edit at https://www.toptal.com/developers/gitignore?templates=windows,visualstudiocode,node,yarn
+# Created by https://www.toptal.com/developers/gitignore/api/yarn,windows,visualstudiocode,node,database
+# Edit at https://www.toptal.com/developers/gitignore?templates=yarn,windows,visualstudiocode,node,database
+
+### Database ###
+*.accdb
+*.db
+*.db-journal
+*.dbf
+*.mdb
+*.pdb
+*.sqlite3
+*.db-shm
+*.db-wal
 
 ### Node ###
 # Logs
@@ -204,7 +215,7 @@ $RECYCLE.BIN/
 # and uncomment the following lines
 # .pnp.*
 
-# End of https://www.toptal.com/developers/gitignore/api/windows,visualstudiocode,node,yarn
+# End of https://www.toptal.com/developers/gitignore/api/yarn,windows,visualstudiocode,node,database
 
 # Custom rules (everything added below won't be overriden by 'Generate .gitignore File' if you use 'Update' option)
 
