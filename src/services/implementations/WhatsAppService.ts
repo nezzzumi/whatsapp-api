@@ -1,5 +1,7 @@
 import { IService } from '../IService';
 import * as venom from 'venom-bot';
+import prisma from '../../database/client';
+import { HttpError } from '../../errors/HttpError';
 
 export class WhatsAppService implements IService {
   private bot?: venom.Whatsapp;
@@ -23,5 +25,21 @@ export class WhatsAppService implements IService {
 
   async send(to: string, content: string): Promise<Object | undefined> {
     return this.bot?.sendText(`${to}@c.us`, content);
+  }
+
+  async logMessage(userId: number, to: string, content: string) {
+    const user = await prisma.user.findUnique({ where: { id: userId } });
+
+    if (!user) {
+      throw new HttpError('Usuário inválido.', 401);
+    }
+
+    await prisma.message.create({
+      data: {
+        content,
+        to,
+        userId: user.id,
+      },
+    });
   }
 }

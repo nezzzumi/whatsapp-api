@@ -37,10 +37,6 @@ export class MessageController implements IController {
 
     try {
       await this.service.send(to, content);
-      return res.json({
-        error: false,
-        msg: 'Mensagem enviada com sucesso.',
-      });
     } catch (err: any) {
       return res.json({
         error: true,
@@ -48,5 +44,16 @@ export class MessageController implements IController {
         result: err.text,
       });
     }
+
+    // There is no problem in doing this because the authorization token has already been validated by the auth middleware.
+    const authorization = req.headers.authorization as string;
+    const userId = jose.decodeJwt(parseAuthorizationHeader(authorization)).sub as string;
+
+    await this.service.logMessage(Number(userId), to, content);
+
+    return res.json({
+      error: false,
+      msg: 'Mensagem enviada com sucesso.',
+    });
   }
 }
