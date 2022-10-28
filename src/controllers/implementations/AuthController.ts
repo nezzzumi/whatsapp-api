@@ -1,5 +1,4 @@
 import Express from 'express';
-import { createSecretKey } from 'crypto';
 import * as jose from 'jose';
 import { HttpError } from '../../errors/HttpError';
 import { AuthService } from '../../services/implementations/AuthService';
@@ -22,24 +21,9 @@ export class AuthController implements IController {
       });
     }
 
-    if (!process.env.JWT_SECRET_KEY) {
-      console.error('Erro na variável de ambiente JWT_SECRET_KEY.');
-
-      return res.status(500).json({
-        error: true,
-        msg: 'Erro interno, contate o administrador.',
-      });
-    }
-
     try {
       const user = await this.service.login(username, password);
-
-      const token = await new jose.SignJWT({ username: user.username })
-        .setProtectedHeader({ alg: 'HS256', typ: 'JWT' })
-        .setSubject(user.id.toString())
-        .setIssuedAt()
-        .setExpirationTime(process.env.JWT_EXPIRES_IN || '30min')
-        .sign(createSecretKey(process.env.JWT_SECRET_KEY, 'utf8'));
+      const token = await this.service.generateJWT(user);
 
       const jwtPayload = jose.decodeJwt(token);
 
