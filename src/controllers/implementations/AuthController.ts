@@ -1,10 +1,9 @@
 import Express from 'express';
-import prisma from '../../database/client';
+import { createSecretKey } from 'crypto';
+import * as jose from 'jose';
 import { HttpError } from '../../errors/HttpError';
 import { AuthService } from '../../services/implementations/AuthService';
 import IController from '../IController';
-import * as jose from 'jose';
-import { createSecretKey } from 'crypto';
 
 export class AuthController implements IController {
   public service: AuthService;
@@ -54,7 +53,7 @@ export class AuthController implements IController {
       return res.json({
         error: false,
         msg: 'Login realizado com sucesso.',
-        token: token,
+        token,
         expiresIn,
       });
     } catch (err) {

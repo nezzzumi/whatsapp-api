@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
+import * as jose from 'jose';
 import { parseAuthorizationHeader } from '../../helpers/helpers';
 import IController from '../IController';
-import * as jose from 'jose';
 import { WhatsAppService } from '../../services/implementations/WhatsAppService';
 
 export class MessageController implements IController {
@@ -45,6 +45,7 @@ export class MessageController implements IController {
       });
     }
 
+    // eslint-disable-next-line max-len
     // There is no problem in doing this because the authorization token has already been validated by the auth middleware.
     const authorization = req.headers.authorization as string;
     const userId = jose.decodeJwt(parseAuthorizationHeader(authorization)).sub as string;

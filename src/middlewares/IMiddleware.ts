@@ -1,5 +1,5 @@
-import { IService } from '../services/IService';
 import Express, { NextFunction } from 'express';
+import { IService } from '../services/IService';
 
 export interface IMiddleware {
   service?: IService;

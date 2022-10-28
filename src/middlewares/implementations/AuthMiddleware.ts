@@ -1,8 +1,8 @@
 import Express, { NextFunction } from 'express';
+import * as jose from 'jose';
 import { isNumeric, parseAuthorizationHeader } from '../../helpers/helpers';
 import { AuthService } from '../../services/implementations/AuthService';
 import { IMiddleware } from '../IMiddleware';
-import * as jose from 'jose';
 import { HttpError } from '../../errors/HttpError';
 
 export class AuthMiddleware implements IMiddleware {
@@ -11,7 +11,7 @@ export class AuthMiddleware implements IMiddleware {
   async handler(
     req: Express.Request,
     res: Express.Response,
-    next: NextFunction
+    next: NextFunction,
   ): Promise<Express.Response | void> {
     try {
       const authorization = req.headers.authorization || '';

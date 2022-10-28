@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import { User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import prisma from '../../database/client';
