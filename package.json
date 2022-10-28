@@ -1,7 +1,7 @@
 {
   "name": "whatsapp-api-ts",
   "version": "1.0.0",
-  "main": "src/index.ts",
+  "main": "src/server.ts",
   "repository": "https://github.com/nezzzumi/whatsapp-api-ts",
   "author": "Guilherme",
   "license": "MIT",
