@@ -1,7 +1,17 @@
 # File created using '.gitignore Generator' for Visual Studio Code: https://bit.ly/vscode-gig
+# Created by https://www.toptal.com/developers/gitignore/api/yarn,windows,visualstudiocode,node,database
+# Edit at https://www.toptal.com/developers/gitignore?templates=yarn,windows,visualstudiocode,node,database
 
-# Created by https://www.toptal.com/developers/gitignore/api/windows,visualstudiocode,node
-# Edit at https://www.toptal.com/developers/gitignore?templates=windows,visualstudiocode,node
+### Database ###
+*.accdb
+*.db
+*.db-journal
+*.dbf
+*.mdb
+*.pdb
+*.sqlite3
+*.db-shm
+*.db-wal
 
 ### Node ###
 # Logs
@@ -162,8 +172,11 @@ dist
 .history
 .ionide
 
+<<<<<<< HEAD
 # Support for Project snippet scope
 
+=======
+>>>>>>> refactor/add-typescript
 ### Windows ###
 # Windows thumbnail cache files
 Thumbs.db
@@ -190,9 +203,35 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+<<<<<<< HEAD
 # End of https://www.toptal.com/developers/gitignore/api/windows,visualstudiocode,node
 
 # Custom rules (everything added below won't be overriden by 'Generate .gitignore File' if you use 'Update' option)
 
 tokens/
 *.db
+=======
+### yarn ###
+# https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
+
+.yarn/*
+!.yarn/releases
+!.yarn/patches
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+
+# if you are NOT using Zero-installs, then:
+# comment the following lines
+!.yarn/cache
+
+# and uncomment the following lines
+# .pnp.*
+
+# End of https://www.toptal.com/developers/gitignore/api/yarn,windows,visualstudiocode,node,database
+
+# Custom rules (everything added below won't be overriden by 'Generate .gitignore File' if you use 'Update' option)
+
+build/*
+tokens/
+>>>>>>> refactor/add-typescript

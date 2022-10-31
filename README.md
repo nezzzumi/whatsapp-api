@@ -2,7 +2,7 @@
 
 Simples API criada com o intuito de enviar mensagens pelo WhatsApp, utilizando [Express.js](https://expressjs.com/pt-br/) e [Venom](https://github.com/orkestral/venom).
 
-Comece [aqui](./src/index.js).
+Comece [aqui](./src/index.ts).
 
 ## Instalação
 
@@ -13,17 +13,19 @@ Para instalar as dependências, no diretório do projeto, digite:
 Após isso, necessário criar o arquivo .env no diretório do projeto, com a seguinte estrutura:
 
     JWT_SECRET_KEY=SUA_CHAVE
+    DATABASE_URL=URL_PARA_O_BANCO
+
+> Exemplos para o DATABASE_URL podem ser encontrados [aqui](https://pris.ly/d/connection-strings).
 
 Para criar uma chave aleatória, eu costumo utilizar o seguinte comando:
-    
+
     head -c32 /dev/random | base64
-    
 
 ## Execução
 
 Para iniciar a API, no diretório do projeto, digite:
 
-    node .
+    ts-node .
 
 Após isso, irá aparecer um QRCODE no terminal. Basta lê-lo, e a API estará pronta para enviar mensagens.
 
@@ -41,7 +43,6 @@ Após isso, irá aparecer um QRCODE no terminal. Basta lê-lo, e a API estará p
 curl 'localhost:3000/api/auth/login' -H 'content-type: application/json' -d '{"username": "user", "password": "mypassword"}'
 ```
 
-
 ### Response
 
 `200 OK`
@@ -51,7 +52,7 @@ curl 'localhost:3000/api/auth/login' -H 'content-type: application/json' -d '{"u
   "error": false,
   "msg": "Login realizado com sucesso.",
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTY0ODk3MDM5OCwiZXhwIjoxNjUxNTYyMzk4fQ.1u5PI7usj8gLLq2UYH7JedaGnC-4aZEYMsOXuGb-jcU",
-  "expiresIn": 2592000,
+  "expiresIn": 1800
 }
 ```
 
@@ -89,7 +90,6 @@ No caso de credenciais inválidas:
 curl 'localhost:3000/api/bot/send' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiI...' -H 'content-type: application/json' -d '{"to": "5511988766767", "content": "oi"}'
 ```
 
-
 ### Response
 
 `200 OK`
@@ -97,7 +97,7 @@ curl 'localhost:3000/api/bot/send' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiI
 ```json
 {
   "error": false,
-  "msg": "Mensagem enviada com sucesso.",
+  "msg": "Mensagem enviada com sucesso."
 }
 ```
 
@@ -144,7 +144,7 @@ No caso do venom retornar um erro:
 {
   "error": true,
   "msg": "Não foi possível enviar a mensagem.",
-  "result": "incorrect parameters! Use as an example: 000000000000@c.us",
+  "result": "incorrect parameters! Use as an example: 000000000000@c.us"
 }
 ```
 
