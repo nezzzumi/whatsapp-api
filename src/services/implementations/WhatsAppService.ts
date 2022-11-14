@@ -28,8 +28,18 @@ export class WhatsAppService implements IService {
     return this.bot !== undefined;
   }
 
-  async send(to: string, content: string): Promise<Object | undefined> {
+  async sendText(to: string, content: string): Promise<Object | undefined> {
     return this.bot?.sendText(`${to}@c.us`, content);
+  }
+
+  /**
+   * Envia imagem
+   * @param to Número do destinatário
+   * @param content Conteúdo da imagem em base64
+   * @param text Texto a ser enviado
+   */
+  async sendImage(to: string, content: string, text?: string): Promise<Object | undefined> {
+    return this.bot?.sendImageFromBase64(`${to}@c.us`, content, 'image', text);
   }
 
   async logMessage(userId: number, to: string, content: string) {
