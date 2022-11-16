@@ -86,8 +86,16 @@ No caso de credenciais inválidas:
 
 `POST /api/bot/send`
 
+Apenas mensagem de texto:
+
 ```bash
 curl 'localhost:3000/api/bot/send' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiI...' -H 'content-type: application/json' -d '{"to": "5511988766767", "content": "oi"}'
+```
+
+Para enviar uma imagem (JPG/PNG) você precisa enviar a imagem em base64 com o parâmetro `image`:
+
+```bash
+curl 'localhost:3000/api/bot/send' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiI...' -H 'content-type: application/json' -d '{"to": "5511988766767", "content": "oi", "image": "/9j/4AAQSkZJRgABAQIAJQAlAAD/2wBDAAMCAgICAgMC..."}'
 ```
 
 ### Response
@@ -136,9 +144,20 @@ No caso do número ser inválido (tamanho diferente de 13, ou não iniciar com 5
 }
 ```
 
+No caso de uma imagem inválida:
+
+`422 UNPROCESSABLE ENTITY`
+
+```json
+{
+  "error": true,
+  "msg": "Imagem inválida."
+}
+```
+
 No caso do venom retornar um erro:
 
-`200 OK`
+`500 INTERNAL SERVER ERROR`
 
 ```json
 {

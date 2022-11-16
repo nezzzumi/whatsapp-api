@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import * as jose from 'jose';
-import { parseAuthorizationHeader } from '../../helpers/helpers';
-import IController from '../IController';
+import { getImageTypeFromBuffer, parseAuthorizationHeader } from '../../helpers/helpers';
 import { WhatsAppService } from '../../services/implementations/WhatsAppService';
+import IController from '../IController';
 
 export class MessageController implements IController {
   public service;
@@ -12,7 +12,7 @@ export class MessageController implements IController {
   }
 
   async post(req: Request, res: Response): Promise<Response> {
-    const { to, content } = req.body;
+    const { to, content, image } = req.body;
 
     if (!this.service.isReady()) {
       return res.status(503).json({
@@ -36,7 +36,22 @@ export class MessageController implements IController {
     }
 
     try {
-      await this.service.send(to, content);
+      if (image) {
+        const imageBuffer = Buffer.from(image, 'base64');
+        const fileType = await getImageTypeFromBuffer(imageBuffer);
+
+        if (!fileType) {
+          return res.status(422).json({
+            error: true,
+            msg: 'Imagem inválida.',
+          });
+        }
+
+        const imageData = `data:image/${fileType};base64,${image}`;
+        await this.service.sendImage(to, imageData, content);
+      } else {
+        await this.service.sendText(to, content);
+      }
     } catch (err: any) {
       return res.json({
         error: true,
@@ -46,7 +61,7 @@ export class MessageController implements IController {
     }
 
     // eslint-disable-next-line max-len
-    // There is no problem in doing this because the authorization token has already been validated by the auth middleware.
+    // There is no problem doing this because the authorization token has already been validated by the auth middleware.
     const authorization = req.headers.authorization as string;
     const userId = jose.decodeJwt(parseAuthorizationHeader(authorization)).sub as string;
 
