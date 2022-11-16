@@ -157,7 +157,7 @@ No caso de uma imagem inválida:
 
 No caso do venom retornar um erro:
 
-`200 OK`
+`500 INTERNAL SERVER ERROR`
 
 ```json
 {
