@@ -21,7 +21,12 @@ export class MessageController implements IController {
       });
     }
 
-    if (!to || !content || typeof to !== 'string' || typeof content !== 'string') {
+    if (
+      !to
+      || !content
+      || typeof to !== 'string'
+      || typeof content !== 'string'
+    ) {
       return res.status(400).json({
         error: true,
         msg: 'Parâmetros inválidos.',
@@ -47,12 +52,13 @@ export class MessageController implements IController {
           });
         }
 
-        const imageData = `data:image/${fileType};base64,${image}`;
-        await this.service.sendImage(to, imageData, content);
+        await this.service.sendImage(to, image, content);
       } else {
         await this.service.sendText(to, content);
       }
     } catch (err: any) {
+      console.error(err);
+
       return res.status(500).json({
         error: true,
         msg: 'Não foi possível enviar a mensagem.',

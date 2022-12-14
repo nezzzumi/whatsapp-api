@@ -1,45 +1,75 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable class-methods-use-this */
-import * as venom from 'venom-bot';
+import { Client, LocalAuth, MessageMedia } from 'whatsapp-web.js';
+import type { Chat } from 'whatsapp-web.js';
 import { IService } from '../IService';
 import prisma from '../../database/client';
 import { HttpError } from '../../errors/HttpError';
 
 export class WhatsAppService implements IService {
-  private bot?: venom.Whatsapp;
+  private bot: Client = new Client({
+    authStrategy: new LocalAuth(),
+    puppeteer: { headless: false },
+    userAgent:
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.82 Safari/537.36',
+  });
+
+  private _isReady: boolean = false;
+
+  isReady() {
+    return this._isReady;
+  }
 
   constructor() {
     if (process.env.NODE_ENV !== 'test') {
-      venom
-        .create({
-          session: 'bot',
-          multidevice: true,
-          browserArgs: [
-            '--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.82 Safari/537.36',
-          ],
-        })
-        .then((session) => {
-          this.bot = session;
-        })
-        .catch(console.error);
+      this.bot.on('ready', () => {
+        console.log('Client is ready!');
+        this._isReady = true;
+      });
+      this.bot.on('qr', (qr) => {
+        console.log('QR RECEIVED', qr);
+      });
+
+      this.bot.initialize();
     }
   }
 
-  isReady(): boolean {
-    return this.bot !== undefined;
+  private async getChat(to: string): Promise<Chat> {
+    const contactId = await this.bot.getNumberId(to);
+
+    if (!contactId) {
+      throw new HttpError('Número não registrado.', 500);
+    }
+
+    // eslint-disable-next-line no-underscore-dangle
+    const chat = await this.bot.getChatById(contactId._serialized);
+
+    return chat;
   }
 
   async sendText(to: string, content: string): Promise<Object | undefined> {
-    return this.bot?.sendText(`${to}@c.us`, content);
+    const chat = await this.getChat(to);
+
+    return chat.sendMessage(content);
   }
 
   /**
    * Envia imagem
    * @param to Número do destinatário
-   * @param content Conteúdo da imagem em base64
-   * @param text Texto a ser enviado
+   * @param image Conteúdo da imagem em base64
+   * @param caption Texto a ser enviado
    */
-  async sendImage(to: string, content: string, text?: string): Promise<Object | undefined> {
-    return this.bot?.sendImageFromBase64(`${to}@c.us`, content, 'image', text);
+  async sendImage(
+    to: string,
+    image: string,
+    caption?: string,
+  ): Promise<Object | undefined> {
+    const chat = await this.getChat(to);
+    const media = new MessageMedia('image/png', image);
+
+    const result = await chat.sendMessage(media, { caption });
+
+    return result;
   }
 
   async logMessage(userId: number, to: string, content: string) {
