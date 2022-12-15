@@ -2,6 +2,7 @@
 /* eslint-disable class-methods-use-this */
 import { Client, LocalAuth, MessageMedia } from 'whatsapp-web.js';
 import type { Chat } from 'whatsapp-web.js';
+import qrcode from 'qrcode-terminal';
 import { IService } from '../IService';
 import prisma from '../../database/client';
 import { HttpError } from '../../errors/HttpError';
@@ -26,9 +27,8 @@ export class WhatsAppService implements IService {
         console.log('Client is ready!');
         this._isReady = true;
       });
-      this.bot.on('qr', (qr) => {
-        console.log('QR RECEIVED', qr);
-      });
+
+      this.bot.on('qr', this.showQRCode);
 
       this.bot.initialize();
     }
@@ -45,6 +45,10 @@ export class WhatsAppService implements IService {
     const chat = await this.bot.getChatById(contactId._serialized);
 
     return chat;
+  }
+
+  private async showQRCode(content: string) {
+    qrcode.generate(content, { small: true });
   }
 
   async sendText(to: string, content: string): Promise<Object | undefined> {
