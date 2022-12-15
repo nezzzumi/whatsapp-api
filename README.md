@@ -80,7 +80,7 @@ No caso de credenciais inválidas:
 }
 ```
 
-### Enviando mensagem
+### Enviando Mensagem
 
 ### Request
 
