@@ -34,6 +34,11 @@ export class WhatsAppService implements IService {
     }
   }
 
+  /**
+   * Verifica se o número informado existe no WhatsApp e retorna o chat.
+   * @param to Número do destinatário
+   * @returns Chat do número
+   */
   private async getChat(to: string): Promise<Chat> {
     const contactId = await this.bot.getNumberId(to);
 
@@ -47,6 +52,10 @@ export class WhatsAppService implements IService {
     return chat;
   }
 
+  /**
+   * Mostra QRCode do WhatsApp no terminal.
+   * @param content Conteúdo do QRCode
+   */
   private async showQRCode(content: string) {
     qrcode.generate(content, { small: true });
   }
@@ -76,6 +85,12 @@ export class WhatsAppService implements IService {
     return result;
   }
 
+  /**
+   * Registra envio de mensagem no banco de dados.
+   * @param userId ID do usuário que enviou a mensagem
+   * @param to Destinatário da mensagem
+   * @param content Conteúdo da mensagem
+   */
   async logMessage(userId: number, to: string, content: string) {
     const user = await prisma.user.findUnique({ where: { id: userId } });
 
