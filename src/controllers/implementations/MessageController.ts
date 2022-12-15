@@ -62,7 +62,6 @@ export class MessageController implements IController {
       return res.status(500).json({
         error: true,
         msg: 'Não foi possível enviar a mensagem.',
-        result: err.text,
       });
     }
 
