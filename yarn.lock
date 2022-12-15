@@ -829,6 +829,11 @@
   resolved "https://registry.yarnpkg.com/@types/prettier/-/prettier-2.7.1.tgz#dfd20e2dc35f027cdd6c1908e80a5ddc7499670e"
   integrity sha512-ri0UmynRRvZiiUJdiz38MmIblKK+oH30MztdBVR95dv/Ubw6neWSb8u1XpRb72L4qsZOhz+L+z9JD40SJmfWow==
 
+"@types/qrcode-terminal@^0.12.0":
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/@types/qrcode-terminal/-/qrcode-terminal-0.12.0.tgz#cee13a96db9346e3240e2128290465db56799961"
+  integrity sha512-g0fQKl3IVnUePV8tLkiBTduxAVSZsXts444T2aMfjOEGxd7XoeSIs16/AmRe2NlcJLqbvsOBSXov7dKSo4wigA==
+
 "@types/qs@*":
   version "6.9.7"
   resolved "https://registry.yarnpkg.com/@types/qs/-/qs-6.9.7.tgz#63bb7d067db107cc1e457c303bc25d511febf6cb"
@@ -3764,6 +3769,11 @@ puppeteer@^13.0.0:
     tar-fs "2.1.1"
     unbzip2-stream "1.4.3"
     ws "8.5.0"
+
+qrcode-terminal@^0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/qrcode-terminal/-/qrcode-terminal-0.12.0.tgz#bb5b699ef7f9f0505092a3748be4464fe71b5819"
+  integrity sha512-EXtzRZmC+YGmGlDFbXKxQiMZNwCLEO6BANKXG4iCtSIM0yqc/pappSx3RIKr4r0uh5JsBckOXeKrB3Iz7mdQpQ==
 
 qs@6.11.0, qs@^6.11.0:
   version "6.11.0"
