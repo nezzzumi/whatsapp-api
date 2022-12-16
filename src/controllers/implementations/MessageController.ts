@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import * as jose from 'jose';
+import { HttpError } from '../../errors/HttpError';
 import { getImageTypeFromBuffer, parseAuthorizationHeader } from '../../helpers/helpers';
 import { WhatsAppService } from '../../services/implementations/WhatsAppService';
 import IController from '../IController';
@@ -57,11 +58,18 @@ export class MessageController implements IController {
         await this.service.sendText(to, content);
       }
     } catch (err: any) {
-      console.error(err);
+      let result = null;
+
+      if (err instanceof HttpError) {
+        result = err.message;
+      } else {
+        console.error(err);
+      }
 
       return res.status(500).json({
         error: true,
         msg: 'Não foi possível enviar a mensagem.',
+        result,
       });
     }
 
