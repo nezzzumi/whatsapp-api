@@ -162,6 +162,7 @@ No caso de um erro interno.
 ```json
 {
   "error": true,
-  "msg": "Não foi possível enviar a mensagem."
+  "msg": "Não foi possível enviar a mensagem.",
+  "detail": "Número não registrado."
 }
 ```
