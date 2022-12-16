@@ -58,10 +58,10 @@ export class MessageController implements IController {
         await this.service.sendText(to, content);
       }
     } catch (err: any) {
-      let result = null;
+      let detail = 'Erro interno.';
 
       if (err instanceof HttpError) {
-        result = err.message;
+        detail = err.message;
       } else {
         console.error(err);
       }
@@ -69,7 +69,7 @@ export class MessageController implements IController {
       return res.status(500).json({
         error: true,
         msg: 'Não foi possível enviar a mensagem.',
-        result,
+        detail,
       });
     }
 
