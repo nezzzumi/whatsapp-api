@@ -172,11 +172,6 @@ dist
 .history
 .ionide
 
-<<<<<<< HEAD
-# Support for Project snippet scope
-
-=======
->>>>>>> refactor/add-typescript
 ### Windows ###
 # Windows thumbnail cache files
 Thumbs.db
@@ -226,4 +221,4 @@ $RECYCLE.BIN/
 
 build/*
 tokens/
-.wwebjs_auth
+.wwebjs_auth/

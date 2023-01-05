@@ -1,8 +1,8 @@
 # Resumo
 
-Simples API criada com o intuito de enviar mensagens pelo WhatsApp, utilizando [Express.js](https://expressjs.com/pt-br/) e [Venom](https://github.com/orkestral/venom).
+Simples API criada com o intuito de enviar mensagens pelo WhatsApp, utilizando [Express.js](https://expressjs.com/pt-br/) e [whatsapp-web.js](https://www.npmjs.com/package/whatsapp-web.js).
 
-Comece [aqui](./src/index.ts).
+Comece [aqui](./src/app.ts).
 
 ## Instalação
 
@@ -80,7 +80,7 @@ No caso de credenciais inválidas:
 }
 ```
 
-### Enviando mensagem
+### Enviando Mensagem
 
 ### Request
 
@@ -155,7 +155,7 @@ No caso de uma imagem inválida:
 }
 ```
 
-No caso do venom retornar um erro:
+No caso de um erro interno.
 
 `500 INTERNAL SERVER ERROR`
 
@@ -163,8 +163,6 @@ No caso do venom retornar um erro:
 {
   "error": true,
   "msg": "Não foi possível enviar a mensagem.",
-  "result": "incorrect parameters! Use as an example: 000000000000@c.us"
+  "detail": "Número não registrado."
 }
 ```
-
-A propriedade `result` é retornada pelo venom.

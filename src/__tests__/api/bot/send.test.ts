@@ -35,7 +35,9 @@ describe('/api/bot/send', () => {
   });
   test('Parâmetros inválidos', async () => {
     prisma.user.findUnique = jest.fn().mockReturnValueOnce(user);
-    jest.spyOn(WhatsAppService.prototype, 'isReady').mockImplementation(() => true);
+    jest
+      .spyOn(WhatsAppService.prototype, 'isReady')
+      .mockImplementation(() => true);
 
     const token = await new AuthService().generateJWT(user);
 
@@ -54,7 +56,9 @@ describe('/api/bot/send', () => {
   });
   test('Número inválido', async () => {
     prisma.user.findUnique = jest.fn().mockReturnValueOnce(user);
-    jest.spyOn(WhatsAppService.prototype, 'isReady').mockImplementation(() => true);
+    jest
+      .spyOn(WhatsAppService.prototype, 'isReady')
+      .mockImplementation(() => true);
 
     const token = await new AuthService().generateJWT(user);
 
@@ -71,14 +75,19 @@ describe('/api/bot/send', () => {
     expect(response.status).toBe(422);
     expect(response.body.error).toBeTruthy();
   });
-  test('Parâmetros válidos', async () => {
+  test('Envio de mensagem de texto', async () => {
     prisma.user.findUnique = jest.fn().mockReturnValue(user);
     prisma.message.create = jest.fn().mockReturnValue({
       content: '',
       to: '',
       userId: user.id,
     });
-    jest.spyOn(WhatsAppService.prototype, 'isReady').mockImplementation(() => true);
+    jest
+      .spyOn(WhatsAppService.prototype, 'isReady')
+      .mockImplementation(() => true);
+    jest
+      .spyOn(WhatsAppService.prototype, 'sendText')
+      .mockImplementation(async (_to: string, _content: string) => ({}));
 
     const token = await new AuthService().generateJWT(user);
     const response = await agent(app)
@@ -86,6 +95,69 @@ describe('/api/bot/send', () => {
       .send({
         to: '5533988888888',
         content: 'oi',
+      })
+      .set({
+        Authorization: `Bearer ${token}`,
+      });
+
+    expect(response.status).toBe(200);
+    expect(response.body.error).toBeFalsy();
+  });
+  test('Envio de imagem inválida', async () => {
+    prisma.user.findUnique = jest.fn().mockReturnValue(user);
+    prisma.message.create = jest.fn().mockReturnValue({
+      content: '',
+      to: '',
+      userId: user.id,
+    });
+    jest
+      .spyOn(WhatsAppService.prototype, 'isReady')
+      .mockImplementation(() => true);
+    jest
+      .spyOn(WhatsAppService.prototype, 'sendImage')
+      .mockImplementation(
+        async (_to: string, _image: string, _caption?: string) => ({})
+      );
+
+    const token = await new AuthService().generateJWT(user);
+    const response = await agent(app)
+      .post('/api/bot/send')
+      .send({
+        to: '5533988888888',
+        content: 'oi',
+        image: 'YQo=',
+      })
+      .set({
+        Authorization: `Bearer ${token}`,
+      });
+
+    expect(response.status).toBe(422);
+    expect(response.body.error).toBeTruthy();
+  });
+  test('Envio de imagem', async () => {
+    prisma.user.findUnique = jest.fn().mockReturnValue(user);
+    prisma.message.create = jest.fn().mockReturnValue({
+      content: '',
+      to: '',
+      userId: user.id,
+    });
+    jest
+      .spyOn(WhatsAppService.prototype, 'isReady')
+      .mockImplementation(() => true);
+    jest
+      .spyOn(WhatsAppService.prototype, 'sendImage')
+      .mockImplementation(
+        async (_to: string, _image: string, _caption?: string) => ({})
+      );
+
+    const token = await new AuthService().generateJWT(user);
+    const response = await agent(app)
+      .post('/api/bot/send')
+      .send({
+        to: '5533988888888',
+        content: 'oi',
+        image:
+          'iVBORw0KGgoAAAANSUhEUgAAAAgAAAAIAQAAAADsdIMmAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QAAd2KE6QAAAAHdElNRQfmDA4UKwKqt1/kAAAADElEQVQI12P4z4ACAT/QB/mI84VSAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIyLTEyLTE0VDIwOjQzOjAyKzAwOjAwTZcIBAAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMi0xMi0xNFQyMDo0MzowMiswMDowMDzKsLgAAAAASUVORK5CYII=',
       })
       .set({
         Authorization: `Bearer ${token}`,
