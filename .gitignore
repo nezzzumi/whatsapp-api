@@ -226,3 +226,4 @@ $RECYCLE.BIN/
 
 build/*
 tokens/
+.wwebjs_auth
