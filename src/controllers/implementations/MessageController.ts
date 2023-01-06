@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import * as jose from 'jose';
+import { Buttons } from 'whatsapp-web.js';
 import { HttpError } from '../../errors/HttpError';
 import { getImageTypeFromBuffer, parseAuthorizationHeader } from '../../helpers/helpers';
 import { WhatsAppService } from '../../services/implementations/WhatsAppService';
@@ -13,7 +14,17 @@ export class MessageController implements IController {
   }
 
   async post(req: Request, res: Response): Promise<Response> {
-    const { to, content, image } = req.body;
+    const {
+      to,
+      content,
+      image,
+      buttons,
+    }: {
+      to: string;
+      content: string;
+      image: string;
+      buttons: { body: string }[];
+    } = req.body;
 
     if (!this.service.isReady()) {
       return res.status(503).json({
@@ -42,7 +53,23 @@ export class MessageController implements IController {
     }
 
     try {
-      if (image) {
+      const buttonOptions = [];
+
+      if (buttons) {
+        for (let i = 0; i < buttons.length; i += 1) {
+          const { body: buttonBody } = buttons[i];
+
+          if (!buttonBody || typeof buttonBody !== 'string') {
+            throw new HttpError('Parâmetros inválidos.', 422);
+          }
+
+          // Necessário porque pode ser enviado mais alguma propriedade além do body.
+          buttonOptions.push({ body: buttonBody });
+        }
+
+        const button = new Buttons(content, buttonOptions);
+        await this.service.sendButtons(to, button);
+      } else if (image) {
         const imageBuffer = Buffer.from(image, 'base64');
         const fileType = await getImageTypeFromBuffer(imageBuffer);
 
@@ -58,13 +85,15 @@ export class MessageController implements IController {
         await this.service.sendText(to, content);
       }
     } catch (err: any) {
-      let detail = 'Erro interno.';
+      const detail = 'Erro interno.';
 
       if (err instanceof HttpError) {
-        detail = err.message;
-      } else {
-        console.error(err);
+        return res
+          .status(err.statusCode)
+          .json({ error: true, msg: err.message });
       }
+
+      console.error(err);
 
       return res.status(500).json({
         error: true,

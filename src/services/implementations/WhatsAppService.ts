@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable class-methods-use-this */
-import { Client, LocalAuth, MessageMedia } from 'whatsapp-web.js';
+import { Buttons, Client, LocalAuth, MessageMedia } from 'whatsapp-web.js';
 import type { Chat } from 'whatsapp-web.js';
 import qrcode from 'qrcode-terminal';
 import { IService } from '../IService';
@@ -75,12 +75,25 @@ export class WhatsAppService implements IService {
   async sendImage(
     to: string,
     image: string,
-    caption?: string,
+    caption?: string
   ): Promise<Object | undefined> {
     const chat = await this.getChat(to);
     const media = new MessageMedia('image/png', image);
 
     const result = await chat.sendMessage(media, { caption });
+
+    return result;
+  }
+
+  /**
+   * Envia botões
+   * @param to Número do destinatário
+   * @param button Botões do WhatsApp
+   */
+  async sendButtons(to: string, button: Buttons): Promise<Object | undefined> {
+    const chat = await this.getChat(to);
+    console.log(chat);
+    const result = await chat.sendMessage(button);
 
     return result;
   }
