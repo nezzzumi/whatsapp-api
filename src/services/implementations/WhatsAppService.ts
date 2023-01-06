@@ -92,7 +92,7 @@ export class WhatsAppService implements IService {
    */
   async sendButtons(to: string, button: Buttons): Promise<Object | undefined> {
     const chat = await this.getChat(to);
-    console.log(chat);
+
     const result = await chat.sendMessage(button);
 
     return result;
