@@ -1,6 +1,7 @@
 import { User } from '@prisma/client';
 import { agent } from 'supertest';
 import * as bcrypt from 'bcrypt';
+import { Buttons } from 'whatsapp-web.js';
 import { app } from '../../../app';
 import { AuthService } from '../../../services/implementations/AuthService';
 import prisma from '../../../database/client';
@@ -158,6 +159,65 @@ describe('/api/bot/send', () => {
         content: 'oi',
         image:
           'iVBORw0KGgoAAAANSUhEUgAAAAgAAAAIAQAAAADsdIMmAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QAAd2KE6QAAAAHdElNRQfmDA4UKwKqt1/kAAAADElEQVQI12P4z4ACAT/QB/mI84VSAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIyLTEyLTE0VDIwOjQzOjAyKzAwOjAwTZcIBAAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMi0xMi0xNFQyMDo0MzowMiswMDowMDzKsLgAAAAASUVORK5CYII=',
+      })
+      .set({
+        Authorization: `Bearer ${token}`,
+      });
+
+    expect(response.status).toBe(200);
+    expect(response.body.error).toBeFalsy();
+  });
+
+  test('Envio de botões inválidos', async () => {
+    prisma.user.findUnique = jest.fn().mockReturnValue(user);
+    prisma.message.create = jest.fn().mockReturnValue({
+      content: '',
+      to: '',
+      userId: user.id,
+    });
+    jest
+      .spyOn(WhatsAppService.prototype, 'isReady')
+      .mockImplementation(() => true);
+    jest
+      .spyOn(WhatsAppService.prototype, 'sendButtons')
+      .mockImplementation(async (_to: string, _button: Buttons) => ({}));
+
+    const token = await new AuthService().generateJWT(user);
+    const response = await agent(app)
+      .post('/api/bot/send')
+      .send({
+        to: '5533988888888',
+        content: 'oi',
+        buttons: [{ a: '1' }],
+      })
+      .set({
+        Authorization: `Bearer ${token}`,
+      });
+
+    expect(response.status).toBe(422);
+    expect(response.body.error).toBeTruthy();
+  });
+  test('Envio de botões válidos', async () => {
+    prisma.user.findUnique = jest.fn().mockReturnValue(user);
+    prisma.message.create = jest.fn().mockReturnValue({
+      content: '',
+      to: '',
+      userId: user.id,
+    });
+    jest
+      .spyOn(WhatsAppService.prototype, 'isReady')
+      .mockImplementation(() => true);
+    jest
+      .spyOn(WhatsAppService.prototype, 'sendButtons')
+      .mockImplementation(async (_to: string, _button: Buttons) => ({}));
+
+    const token = await new AuthService().generateJWT(user);
+    const response = await agent(app)
+      .post('/api/bot/send')
+      .send({
+        to: '5533988888888',
+        content: 'oi',
+        buttons: [{ body: '1' }],
       })
       .set({
         Authorization: `Bearer ${token}`,
