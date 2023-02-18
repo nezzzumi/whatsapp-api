@@ -35,6 +35,6 @@
     "express": "^4.18.2",
     "jose": "^4.10.3",
     "qrcode-terminal": "^0.12.0",
-    "whatsapp-web.js": "^1.19.3"
+    "whatsapp-web.js": "^1.19.4"
   }
 }
